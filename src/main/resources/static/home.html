@@ -1,5 +1,23 @@
 <html>
-    <body>
-        <h1>Hello from home.html</h1>
-    </body>
+    <head>
+        <title>PetTracker</title>
+    </head>
+  <body>
+    <h1>Login</h1>
+    <form action="/login" method="POST">
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" required>
+      <br>
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required>
+      <br>
+      <button class="btn" type="login">Login</button>
+      <br>
+      <label>Not a member?</label>
+      <a href="https://www.google.com">Signup Now</a>
+      <!-- Guest Login for easier testing-->
+      <br>
+      <a href="https://www.google.com">Guest Login</a>
+    </form>
+  </body>
 </html>
