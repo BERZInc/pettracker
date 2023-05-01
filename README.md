@@ -23,3 +23,16 @@ or
 ```
 gradlew run
 ```
+
+# How to start mysql database 
+
+The following mysql container will use the definitions from init.sql to populate and create the database
+```
+docker-compose up
+```
+
+To access phpMyAdmin to manage database go in your browser to http://localhost:8080
+
+Host: mysql
+User: root
+Password: 12345
