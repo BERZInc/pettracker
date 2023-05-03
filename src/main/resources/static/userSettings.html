@@ -5,15 +5,15 @@
   <body>
     <h1>User Settings</h1>
     <!-- get info from database-->
-    <form action="/userSettings" method="post">
+    <form action="/userSettings" method="post"> <!-- Idk if it is GET or POST-->
       <label for="name">Name:</label>
-      <input type="text" id="name" name="name" value="<?php echo $user['name']; ?">
+      <input type="text" id="name" name="name" value="">
       <br>
       <label for="username">Username:</label>
-      <input type="text" id="username" name="username" value="<?php echo $user['username']; ?>">
+      <input type="text" id="username" name="username" value="">
       <br>
       <label for="password">Password:</label>
-      <input type="password" id="password" name="password" value="<?php echo $user['password']; ?>">
+      <input type="password" id="password" name="password" value="">
       <br>
       <button type="submit">Save Changes</button>
       <button type="button">Cancel</button>
