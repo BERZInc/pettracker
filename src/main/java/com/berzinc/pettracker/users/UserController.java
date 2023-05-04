@@ -7,8 +7,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+import com.berzinc.pettracker.security.Credentials;
+
+@RestController
 @RequestMapping(path="/users")
 public class UserController {
     
@@ -17,15 +20,11 @@ public class UserController {
 
     @PostMapping(path="/add")
     public @ResponseBody String addNewUser(@RequestParam String firstName, @RequestParam String lastName, @RequestParam String username, @RequestParam String passowrd) {
-        User n = new User();
+        
+        Credentials credentials = new Credentials(username, passowrd); 
+        User user = new User(firstName, lastName, credentials);
 
-        n.setFirstName(firstName);
-        n.setLastName(lastName);
-        n.setUsername(username);
-        n.setPassword(passowrd);
-
-        userRepository.save(n);
-
+        userRepository.save(user);
         return "Saved";
     }
 

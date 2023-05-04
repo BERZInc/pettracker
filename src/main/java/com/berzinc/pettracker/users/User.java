@@ -1,61 +1,53 @@
 package com.berzinc.pettracker.users;
 
+import com.berzinc.pettracker.security.Credentials;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 
-@Entity // This tells Hibernate to make a table out of this class
+@Entity
 public class User {
   @Id
+  @Column(name="user_id")
   @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
 
-  private String firstName;
+  @Column(name="first_name", nullable=false)
+  private final String firstName;
 
-  private String lastName;
+  @Column(name="last_name", nullable=false)
+  private final String lastName;
 
-  private String username;
+  @OneToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "user_name")
+  private final Credentials credentials;
 
-  private String password;
-
-  public Integer getId() {
-    return id;
-  }
-
-  public void setId(Integer id) {
-    this.id = id;
+  public User(String firstName, String lastName, Credentials credentials) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.credentials = credentials;
   }
 
   public String getFirstName() {
     return firstName;
   }
 
-  public void setFirstName(String name) {
-    this.firstName = name;
-  }
-
   public String getLastName() {
     return lastName;
   }
 
-  public void setLastName(String name) {
-    this.lastName = name;
-  }
-
   public String getUsername() {
-    return username;
-  }
-
-  public void setUsername(String username) {
-    this.username = username;
+    return credentials.getUsername();
   }
 
   public String getPassword() {
-    return password;
+    return credentials.getPassword();
   }
 
-  public void setPassword(String password) {
-    this.password = password;
-  }
 }
