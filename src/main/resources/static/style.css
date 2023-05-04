@@ -1,0 +1,9 @@
+.card-size {
+    width: 18rem;
+    height: 18rem;
+}
+.settings-icon {
+    width: 24px; /* set the width of the icon */
+    height: 24px; /* set the height of the icon */
+    filter: grayscale(100%) /* make the icon grayscale */
+}
