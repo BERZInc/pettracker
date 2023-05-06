@@ -16,7 +16,13 @@ public class Credentials {
 
     @Column(name="user_name", unique=true)
     private final String userName;
+
     private final String password;
+
+    public Credentials() {
+        this.userName = "";
+        this.password = "";
+    }
 
     public Credentials(String userName, String password) {
         this.userName = userName;

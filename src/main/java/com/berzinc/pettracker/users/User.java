@@ -1,6 +1,7 @@
 package com.berzinc.pettracker.users;
 
 import com.berzinc.pettracker.security.Credentials;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -28,6 +29,12 @@ public class User {
   @JoinColumn(name = "user_name")
   private final Credentials credentials;
 
+  public User(){
+    this.firstName = "";
+    this.lastName = "";
+    this.credentials = new Credentials();
+  }
+
   public User(String firstName, String lastName, Credentials credentials) {
     this.firstName = firstName;
     this.lastName = lastName;
@@ -46,6 +53,7 @@ public class User {
     return credentials.getUsername();
   }
 
+  @JsonIgnore
   public String getPassword() {
     return credentials.getPassword();
   }
