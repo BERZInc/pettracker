@@ -6,6 +6,49 @@
         <link href="style.css" rel="stylesheet">
     </head> 
     <body>
-        
+        <div class="container" style="max-width: 960px;">
+            <main>
+                <div class="col-md-7 col-lg-8" style="padding-top: 20px;">
+                    <h1 class="mb-3">Book Appointment</h1>
+                    <div class="row g-3">
+                        <form method="POST">
+                            <div class="col-sm-12">
+                                <label for="username" class="form-label">Username</label>
+                                <input type="text" class="form-control" id="username" placeholder="" value="" required>
+                            </div>
+
+                            <div class="col-sm-12">
+                                <label for="petName" class="form-label">Pet name</label>
+                                <input type="text" class="form-control" id="petName" placeholder="" value="" required>
+                            </div>
+
+                            <div class="col-sm-12" style="display: flex; flex-direction: column;">
+                                <label for="vetName" class="form-label">Vet</label>
+                                <select class="dropdown form-control dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <option><span>Available Vets</span></option>
+                                    <option class="dropdown-item">Option 1</option>
+                                    <option class="dropdown-item">Option 2</option>
+                                    <option class="dropdown-item">Option 3</option>
+                                </select>
+                            </div>
+
+                            <div class="col-sm-12">
+                                <label for="appDate" class="form-label">Date</label>
+                                <input type="date" class="form-control" id="appdate" required>
+                            </div>
+
+                            <div class="col-sm-12">
+                                <label for="appTime" class="form-label">Time</label>
+                                <input type="time" class="form-control" id="appTime" required>
+                            </div>
+
+                            <br>
+                            <button class="btn btn-primary">Confirm Appointment</button>
+                        </form>
+                    </div>
+                </div>
+            </main>
+        </div>
+
     </body>
 </html>
