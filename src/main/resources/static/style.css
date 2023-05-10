@@ -4,8 +4,8 @@
 }
 
 .settings-icon {
-    width: 24px; /* set the width of the icon */
-    height: 24px; /* set the height of the icon */
+    width: 50px; /* set the width of the icon */
+    height: 50px; /* set the height of the icon */
     filter: grayscale(100%) /* make the icon grayscale */
 }
 
@@ -191,4 +191,9 @@ z-index: 1500;
 
 .opacity-10 {
   opacity: .1;
+}
+
+.myBtn {
+  width: 350px;
+  height: 100px;
 }
