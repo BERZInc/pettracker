@@ -7,36 +7,51 @@
     </head> 
     <body>
         <!-- customize to add user's name-->
-        <h1>Welcome</h1>
-        <a href="userSettings.html">
-            <img src="settings-icon.png" class="settings-icon" alt="Settings">
-        </a>
+        <div class="position-absolute start-50 translate-middle-x" style="top: 50px">
+          <h1>Welcome</h1>
+        </div>
+
+        <div class="position-absolute" style="top: 10px; left: 1475px">
+          <a href="userSettings.html">
+              <img src="settings-icon.png" width="40px" height="40px;" alt="Settings">
+          </a>
+        </div>
         <br>
 
-        <div class="container text-center">
+        <div class="container text-center position-absolute top-50 start-50 translate-middle">
             <div class="row g-2 align-items-stretch">
               <div class="col-6">
                 <a href="usersPets.html">
-                    <button class="p-3">Pets</button>
+                    <button class="p-3 btn btn-light btn-lg myBtn">Pets</button>
                 </a>                    
               </div>
               <div class="col-6">
-                <button class="p-3">Visit History</button>
-              </div>
-              <div class="col-6">
-                <a href="petVaccinations.html">
-                  <button class="p-3">Pet Vaccinations</button>
+                <a href="visitHistory.html">
+                  <button class="p-3 btn btn-light btn-lg myBtn">Visit History</button>
               </a>
               </div>
               <div class="col-6">
-                <button class="p-3">Appointments</button>
+                <a href="petVaccinations.html">
+                  <button class="p-3 btn btn-light btn-lg myBtn">Pet Vaccinations</button>
+              </a>
               </div>
               <div class="col-6">
-                <button class="p-3">Chat</button>
+                <div class="dropdown">
+                  <button class="p-3 btn btn-light btn-lg dropdown-toggle myBtn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Appointments
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="petOwnerBookApp.html">Book Appointment</a></li>
+                    <li><a class="dropdown-item" href="petOwnerSeeApp.html">Pending Appointments</a></li>
+                  </ul>
+                </div>
               </div>
               <div class="col-6">
-                <button class="p-3">test</button>
+                <button class="p-3 btn btn-light btn-lg myBtn">Chat</button>
               </div>
+              <!-- <div class="col-6">
+                <button class="p-3 btn btn-light btn-lg myBtn">test</button>
+              </div> -->
             </div>
         </div>  
     </body>
