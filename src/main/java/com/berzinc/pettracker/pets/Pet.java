@@ -39,6 +39,9 @@ public class Pet {
   @Column(name="weight", nullable=false)
   private Double weight;
 
+
+  public Pet() {}
+
   public Pet(String name, String species, String color, String breed, Double height, Double weight) {
     this.name = name;
     this.species = species;

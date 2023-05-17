@@ -6,7 +6,9 @@ import jakarta.transaction.Transactional;
  
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
+@Service
 public class PetService {
     @Autowired
     private PetRepository petRepository;
@@ -14,7 +16,8 @@ public class PetService {
     public List<Pet> listAllPets() {
         return petRepository.findAll();
     }
-     
+    
+    @CrossOrigin
     public Pet createPet(Pet pet) {
     	return petRepository.save(pet);
     }
