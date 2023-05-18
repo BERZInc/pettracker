@@ -2,6 +2,8 @@ package com.berzinc.pettracker.vaccinations;
 
 import java.sql.Date;
 
+import com.berzinc.pettracker.pets.Pet;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Table;
@@ -10,6 +12,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 
 @Entity
@@ -20,8 +23,9 @@ public class Vaccination {
   @GeneratedValue(strategy=GenerationType.IDENTITY)
   private Long id;
 
-  @Column(name="pet_id", nullable=false)
-  private Long pet_id;
+  @ManyToOne
+  @JoinColumn(name="pet_id")
+  private Pet pet;
   
   @Column(name="date", nullable=false)
   private Date date;
@@ -29,8 +33,8 @@ public class Vaccination {
   @Column(name="name", nullable=false)
   private String name;
 
-  public Vaccination(Long pet_id, Date date, String name) {
-    this.pet_id = pet_id;
+  public Vaccination(Pet pet, Date date, String name) {
+    this.pet = pet;
     this.date = date;
     this.name = name;
   }
@@ -43,12 +47,12 @@ public void setId(Long id) {
 	this.id = id;
 }
 
-public Long getPet_id() {
-	return pet_id;
+public Pet getPet() {
+	return pet;
 }
 
-public void setPet_id(Long pet_id) {
-	this.pet_id = pet_id;
+public void setPet(Pet pet) {
+	this.pet = pet;
 }
 
 public Date getDate() {

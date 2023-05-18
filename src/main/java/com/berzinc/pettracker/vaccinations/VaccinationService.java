@@ -30,7 +30,7 @@ public class VaccinationService {
     
     public Vaccination updateVaccination(Long id, Vaccination vaccinationDetails) {
     	Vaccination vaccination = vaccinationRepository.findById(id).get();
-    	vaccination.setPet_id(vaccinationDetails.getPet_id());
+    	vaccination.setPet(vaccinationDetails.getPet());
     	vaccination.setDate(vaccinationDetails.getDate());
     	vaccination.setName(vaccinationDetails.getName());
         
