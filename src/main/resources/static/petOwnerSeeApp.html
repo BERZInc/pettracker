@@ -140,6 +140,7 @@ body {
                             $("#update_date").val(apptData[apptId]["date"]);
                             $("#update_time").val(apptData[apptId]["time"]);
                             $("#update_notes").val(apptData[apptId]["notes"]);
+                            $("#updateNoteForm").attr("appt", apptId);
                         });
                     }
                 
@@ -149,7 +150,8 @@ body {
 
 
             $("#saveChanges").on("click", function() {
-
+               var apptId = $("#updateNoteForm").attr("appt");
+              var id = apptData[apptId]["id"];
 
                 var updateNoteForm = $("#updateNoteForm").serializeArray();
                 
@@ -159,7 +161,7 @@ body {
 	                }
 	
 	                var settings = {
-	                "url": "http://localhost:8080/api/appointments/1",
+	                "url": "http://localhost:8080/api/appointments/" + id,
 	                "method": "PUT",
 	                "timeout": 0,
 	                "headers": {
