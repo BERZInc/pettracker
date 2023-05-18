@@ -183,26 +183,25 @@ body {
                 
                 var updatedDog = {};
                 for(var i = 0; i < updatePetForm.length; i++){
-                    updatedDog[updatePetForm[i]["name"]] = updatePetForm[i]["value"] 
-                }
-
-
-                var settings = {
-                "url": "http://localhost:8080/api/pets/1",
-                "method": "PUT",
-                "timeout": 0,
-                "headers": {
-                    "Content-Type": "application/json"
-                },
-                "data": JSON.stringify(updatedDog),
-                };
-
-                $.ajax(settings).done(function (response) {
-                    $("#updatePetForm").trigger("reset");
-                    $('#updatePetModal').modal('toggle');
-                    getPets();
-                });
-
+	                    updatedDog[updatePetForm[i]["name"]] = updatePetForm[i]["value"] 
+	                }
+	
+	
+	                var settings = {
+	                "url": "http://localhost:8080/api/pets/1",
+	                "method": "PUT",
+	                "timeout": 0,
+	                "headers": {
+	                    "Content-Type": "application/json"
+	                },
+	                "data": JSON.stringify(updatedDog),
+	                };
+	
+	                $.ajax(settings).done(function (response) {
+	                    $("#updatePetForm").trigger("reset");
+	                    $('#updatePetModal').modal('toggle');
+	                    getPets();
+	                });
             });
 
 
@@ -210,7 +209,6 @@ body {
             $( "#saveNewPet" ).on( "click", function() {
                 var newPetForm = $("#newPetForm").serializeArray();
 
-                console.log(newPetForm);
                 var newDog = {};
                 for(var i = 0; i < newPetForm.length; i++){
                     newDog[newPetForm[i]["name"]] = newPetForm[i]["value"] 

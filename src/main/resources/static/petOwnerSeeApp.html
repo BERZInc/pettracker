@@ -57,11 +57,52 @@ body {
         <form id="updateApptList" method="PUT">
                 <div id="apptList" class="card-deck row row-cols-1 row-cols-md-2 g-3"></div>
             <div class="center">
-                            <button type="button" class="btn btn-primary" id="submit">Save Form</button>
-            <button type="button" class="btn btn-primary" id="back" onclick="history.back();">Back</button>
+                            <!-- <button type="button" class="btn btn-primary" id="submit">Save Form</button>
+            <button type="button" class="btn btn-primary" id="back" onclick="history.back();">Back</button> -->
             </div>
         </form>
         </div>
+        
+        
+        <form id="updateNoteForm" method="PUT">
+            <div class="modal" id="updateNoteModal" tabindex="-1">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title text-white bg-dark mb-3">Update your appointment information</h5> 
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            <label for="fullName">Full Name:</label>
+                            <input type="text" id="update_fullName" name="fullName" readonly>
+                            <br>
+                            <label for="petName">Pet Name:</label>
+                            <input type="text" id="update_petName" name="petName" readonly>
+                            <br>
+                            <label for="vetName">Vet Name:</label>
+                            <input type="text" id="update_vetName" name="vetName" readonly>
+                            <br>
+                            <label for="date">Date:</label>
+                            <input type="text" id="update_date" name="date" readonly>
+                            <br>
+                            <label for="time">Time:</label>
+                            <input type="text" id="update_time" name="time" readonly>
+                            <br>
+                            <label for="notes">Notes:</label>
+                            <input type="text" id="update_notes" name="notes">
+                            <br>
+                    </p>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" id="saveChanges" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </form>
+        
         <script>
 		const apptData = {};
 
@@ -82,44 +123,59 @@ body {
                             "<div class=\"card\">" +
                             "<div class=\"card-body\">" +
                             "<h2 class=\"card-header text-white bg-dark mb-3\">"+ response[i]["date"] + " " + response[i]["time"] +"</h2>" +
-                            /*"<p class=\"card-text\">" +*/
+                            "<p class=\"card-text\"><label for=\"date\" hidden=1>Date: " + response[i]["date"] +"</label></p>"+ 
+                            "<p class=\"card-text\"><label for=\"time\" hidden=1>Time: " + response[i]["time"] +"</label></p>"+ 
                             "<p class=\"card-text\"><label for=\"petName\">Pet Name: " + response[i]["petName"] +"</label></p>"+ 
                             "<p class=\"card-text\"><label for=\"vetName\">Vet Name: " + response[i]["vetName"] +"</label></p>"+ 
-                            "<textarea id=\"notes\" name=\"notes\" cols=\"50\"></textarea>" +
+                            "<p class=\"card-text\"><label for=\"notes\">Notes: " + response[i]["notes"] +"</label></p>"+ 
+                            "<button id=\"appt"+i+"\" class=\"btn btn-primary noteUpdate\" type=\"button\" data-bs-toggle=\"modal\" data-bs-target=\"#updateNoteModal\">Add notes</button>" +
                             "</div></div></div>"
                             );
+                        $("#appt"+i).on("click", function(e) {
+                            var apptId = e.currentTarget.attributes["id"]["nodeValue"];
+                            $("#updateNoteForm").trigger("reset");
+                            $("#update_fullName").val(apptData[apptId]["fullName"]);
+                            $("#update_petName").val(apptData[apptId]["petName"]);
+                            $("#update_vetName").val(apptData[apptId]["vetName"]);
+                            $("#update_date").val(apptData[apptId]["date"]);
+                            $("#update_time").val(apptData[apptId]["time"]);
+                            $("#update_notes").val(apptData[apptId]["notes"]);
+                        });
                     }
                 
                 });
             }
             getAppts();
+
+
+            $("#saveChanges").on("click", function() {
+
+
+                var updateNoteForm = $("#updateNoteForm").serializeArray();
+                
+                var updatedNote = {};
+                for(var i = 0; i < updateNoteForm.length; i++){
+	                	updatedNote[updateNoteForm[i]["name"]] = updateNoteForm[i]["value"] 
+	                }
+	
+	                var settings = {
+	                "url": "http://localhost:8080/api/appointments/1",
+	                "method": "PUT",
+	                "timeout": 0,
+	                "headers": {
+	                    "Content-Type": "application/json"
+	                },
+	                "data": JSON.stringify(updatedNote),
+	                };
+	
+	                $.ajax(settings).done(function (response) {
+	                    $("#updateNoteForm").trigger("reset");
+	                    $('#updateNoteModal').modal('toggle');
+	                    getAppts();
+	                });
+            });
             
-            $("#submit").on("click", function() {
-                var updateApptList = $("#updateApptList").serializeArray();
-
-                var newNote = {};
-                for(var i = 0; i < apptList.length; i++){
-                	newNote[updateApptList[i]["name"]] = updateApptList[i]["value"] 
-                }
-                console.log(apptData);
-                console.log(updateApptList);
-                console.log(newNote);
-                var settings = {
-                "url": "http://localhost:8080/api/appointments/1",
-                "method": "PUT",
-                "timeout": 0,
-                "headers": {
-                    "Content-Type": "application/json"
-                },
-                "data": JSON.stringify(newNote),
-                };
-
-                $.ajax(settings).done(function (response) {
-                    
-                    $("#newPetForm").trigger("reset");
-                    getAppts();
-                });
-            } );
+            
             </script>
     </body>
 </html>
