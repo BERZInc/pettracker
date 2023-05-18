@@ -6,17 +6,27 @@ import jakarta.transaction.Transactional;
  
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.berzinc.pettracker.pets.Pet;
+import com.berzinc.pettracker.pets.PetRepository;
 
 @Service
 public class VaccinationService {
     @Autowired
     private VaccinationRepository vaccinationRepository;
     
+    @Autowired
+    private PetRepository PetRepository;
+
     public List<Vaccination> listAllVaccinations() {
         return vaccinationRepository.findAll();
     }
      
-    public Vaccination createVaccination(Vaccination vaccination) {
+    public Vaccination createVaccination(VaccinationRequest vaccinationRequest) {
+        Pet pet = PetRepository.findByName(vaccinationRequest.getPetName());
+        if(pet == null) {
+            throw new IllegalStateException("Pet not found");
+        }
+        Vaccination vaccination = new Vaccination(pet, vaccinationRequest.getDate(), vaccinationRequest.getName());
     	return vaccinationRepository.save(vaccination);
     }
      
@@ -29,11 +39,12 @@ public class VaccinationService {
     }
     
     public Vaccination updateVaccination(Long id, Vaccination vaccinationDetails) {
-    	Vaccination vaccination = vaccinationRepository.findById(id).get();
-    	vaccination.setPet_id(vaccinationDetails.getPet_id());
-    	vaccination.setDate(vaccinationDetails.getDate());
-    	vaccination.setName(vaccinationDetails.getName());
+    	// Vaccination vaccination = vaccinationRepository.findById(id).get();
+    	// vaccination.setPet_id(vaccinationDetails.getPet_id());
+    	// vaccination.setDate(vaccinationDetails.getDate());
+    	// vaccination.setName(vaccinationDetails.getName());
         
-        return vaccinationRepository.save(vaccination);                                
+        // return vaccinationRepository.save(vaccination);  
+        return null;                              
     }
 }
