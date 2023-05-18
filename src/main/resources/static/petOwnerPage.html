@@ -6,10 +6,41 @@
         <link href="style.css" rel="stylesheet">
     </head> 
     <body>
-        <!-- customize to add user's name-->
+    <style>
+body {
+  background-image: url('pexels-lumn-406014.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;
+}
+.header {
+  padding: 60px;
+  text-align: center;
+  color: black;
+  font-size: 100px;
+}
+</style>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="petOwnerPage.html">PetTracker</a>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link" href="usersPets.html">My Pets</a>
+      <a class="nav-item nav-link" href="petVaccinations.html">Vaccinations</a>
+      <a class="nav-item nav-link" href="petOwnerBookApp.html">Book Appt</a>
+      <a class="nav-item nav-link" href="petOwnerSeeApp.html">Appt History</a>
+    </div>
+    <div class="navbar-nav ms-auto">
+      <a class="nav-item nav-link" href="userSettings.html">Settings</a>
+    </div>
+  </div>
+</nav>
+<div class="header">
+  <h>PetTracker</h>
+</div><!-- 
+        customize to add user's name
         <div class="position-absolute start-50 translate-middle-x" style="top: 50px">
-          <h1>Welcome</h1>
-        </div>
+          <h1>PetTracker</h1>
+        </div> -->
 
         <div class="position-absolute" style="top: 10px; left: 1475px">
           <a href="userSettings.html">
@@ -22,36 +53,24 @@
             <div class="row g-2 align-items-stretch">
               <div class="col-6">
                 <a href="usersPets.html">
-                    <button class="p-3 btn btn-light btn-lg myBtn">Pets</button>
+                    <button class="p-3 btn btn-dark btn-lg myBtn">My Pets</button>
                 </a>                    
               </div>
               <div class="col-6">
-                <a href="visitHistory.html">
-                  <button class="p-3 btn btn-light btn-lg myBtn">Visit History</button>
+                <a href="petOwnerBookApp.html">
+                  <button class="p-3 btn btn-dark btn-lg myBtn">Book Appointment</button>
               </a>
               </div>
               <div class="col-6">
                 <a href="petVaccinations.html">
-                  <button class="p-3 btn btn-light btn-lg myBtn">Pet Vaccinations</button>
+                  <button class="p-3 btn btn-dark btn-lg myBtn">Pet Vaccinations</button>
               </a>
               </div>
               <div class="col-6">
-                <div class="dropdown">
-                  <button class="p-3 btn btn-light btn-lg dropdown-toggle myBtn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Appointments
-                  </button>
-                  <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="petOwnerBookApp.html">Book Appointment</a></li>
-                    <li><a class="dropdown-item" href="petOwnerSeeApp.html">Pending Appointments</a></li>
-                  </ul>
-                </div>
+                <a href="petOwnerSeeApp.html">
+                  <button class="p-3 btn btn-dark btn-lg myBtn">Appointment History</button>
+              </a>
               </div>
-              <div class="col-6">
-                <button class="p-3 btn btn-light btn-lg myBtn">Chat</button>
-              </div>
-              <!-- <div class="col-6">
-                <button class="p-3 btn btn-light btn-lg myBtn">test</button>
-              </div> -->
             </div>
         </div>  
     </body>
