@@ -184,7 +184,8 @@
 
             $( "#saveNewPet" ).on( "click", function() {
                 var newPetForm = $("#newPetForm").serializeArray();
-                
+
+                console.log(newPetForm);
                 var newDog = {};
                 for(var i = 0; i < newPetForm.length; i++){
                     newDog[newPetForm[i]["name"]] = newPetForm[i]["value"] 

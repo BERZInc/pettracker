@@ -21,25 +21,27 @@ public class Appointment {
   @GeneratedValue(strategy=GenerationType.IDENTITY)
   private Long id;
 
-  @Column(name="user_id", nullable=false)
-  private Long user_id;
+  @Column(name="fullName", nullable=false)
+  private String fullName;
 
-  @Column(name="pet_id", nullable=false)
-  private Long pet_id;
+  @Column(name="petName", nullable=false)
+  private String petName;
   
-  @Column(name="vet_id", nullable=false)
-  private Long vet_id;
+  @Column(name="vetName", nullable=false)
+  private String vetName;
   
   @Column(name="date", nullable=false)
-  private Date date;
+  private String date;
   
   @Column(name="time", nullable=false)
-  private Time time;
+  private String time;
 
-  public Appointment(Long user_id, Long pet_id, Long vet_id, Date date, Time time) {
-    this.user_id = user_id;
-    this.pet_id = pet_id;
-    this.vet_id = vet_id;
+  public Appointment() {}
+  
+  public Appointment(String fullName, String petName, String vetName, String date, String time) {
+    this.fullName = fullName;
+    this.petName = petName;
+    this.vetName = vetName;
     this.date = date;
     this.time = time;
   }
@@ -52,43 +54,43 @@ public void setId(Long id) {
 	this.id = id;
 }
 
-public Long getUser_id() {
-	return user_id;
+public String getFullName() {
+	return fullName;
 }
 
-public void setUser_id(Long user_id) {
-	this.user_id = user_id;
+public void setFullName(String fullName) {
+	this.fullName = fullName;
 }
 
-public Long getPet_id() {
-	return pet_id;
+public String getPetName() {
+	return petName;
 }
 
-public void setPet_id(Long pet_id) {
-	this.pet_id = pet_id;
+public void setPetName(String petName) {
+	this.petName = petName;
 }
 
-public Long getVet_id() {
-	return vet_id;
+public String getVetName() {
+	return vetName;
 }
 
-public void setVet_id(Long vet_id) {
-	this.vet_id = vet_id;
+public void setVetName(String vetName) {
+	this.vetName = vetName;
 }
 
-public Date getDate() {
+public String getDate() {
 	return date;
 }
 
-public void setDate(Date date) {
+public void setDate(String date) {
 	this.date = date;
 }
 
-public Time getTime() {
+public String getTime() {
 	return time;
 }
 
-public void setTime(Time time) {
+public void setTime(String time) {
 	this.time = time;
 }
 
