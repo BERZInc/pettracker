@@ -26,7 +26,7 @@ public class Vaccination {
 
   @ManyToOne()
   @JoinColumn(name="pet_id")
-  @JsonIgnore
+  //@JsonIgnore
   private Pet pet;
   
   @Column(name="date", nullable=false)
