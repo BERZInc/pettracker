@@ -36,8 +36,31 @@ body {
     text-align: center;
 }
 </style>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="petOwnerPage.html">PetTracker</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link" href="usersPets.html">My Pets</a>
+      <a class="nav-item nav-link" href="petVaccinations.html">Vaccinations</a>
+      <a class="nav-item nav-link" href="petOwnerBookApp.html">Book Appt</a>
+      <a class="nav-item nav-link active" href="petOwnerSeeApp.html">Appt History</a>
+    </div>
+    <div class="navbar-nav ms-auto">
+      <a class="nav-item nav-link" href="userSettings.html">Settings</a>
+    </div>
+  </div>
+</nav>
         <div class="container">
+        <form id="updateApptList" method="PUT">
                 <div id="apptList" class="card-deck row row-cols-1 row-cols-md-2 g-3"></div>
+            <div class="center">
+                            <button type="button" class="btn btn-primary" id="submit">Save Form</button>
+            <button type="button" class="btn btn-primary" id="back" onclick="history.back();">Back</button>
+            </div>
+        </form>
         </div>
         <script>
 		const apptData = {};
@@ -62,6 +85,7 @@ body {
                             /*"<p class=\"card-text\">" +*/
                             "<p class=\"card-text\"><label for=\"petName\">Pet Name: " + response[i]["petName"] +"</label></p>"+ 
                             "<p class=\"card-text\"><label for=\"vetName\">Vet Name: " + response[i]["vetName"] +"</label></p>"+ 
+                            "<textarea id=\"notes\" name=\"notes\" cols=\"50\"></textarea>" +
                             "</div></div></div>"
                             );
                     }
@@ -69,9 +93,33 @@ body {
                 });
             }
             getAppts();
+            
+            $("#submit").on("click", function() {
+                var updateApptList = $("#updateApptList").serializeArray();
+
+                var newNote = {};
+                for(var i = 0; i < apptList.length; i++){
+                	newNote[updateApptList[i]["name"]] = updateApptList[i]["value"] 
+                }
+                console.log(apptData);
+                console.log(updateApptList);
+                console.log(newNote);
+                var settings = {
+                "url": "http://localhost:8080/api/appointments/1",
+                "method": "PUT",
+                "timeout": 0,
+                "headers": {
+                    "Content-Type": "application/json"
+                },
+                "data": JSON.stringify(newNote),
+                };
+
+                $.ajax(settings).done(function (response) {
+                    
+                    $("#newPetForm").trigger("reset");
+                    getAppts();
+                });
+            } );
             </script>
-            <div class="center">
-            <button type="button" class="btn btn-primary" id="back" onclick="history.back();">Back</button>
-            </div>
     </body>
 </html>

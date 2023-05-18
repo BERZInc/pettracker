@@ -35,6 +35,7 @@ public class AppointmentService {
     	appointment.setVetName(appointmentDetails.getVetName());
     	appointment.setDate(appointmentDetails.getDate());
     	appointment.setTime(appointmentDetails.getTime());
+    	appointment.setNotes(appointmentDetails.getNotes());
         
         return appointmentRepository.save(appointment);                                
     }

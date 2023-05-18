@@ -35,6 +35,9 @@ public class Appointment {
   
   @Column(name="time", nullable=false)
   private String time;
+  
+  @Column(name="notes", nullable=false)
+  private String notes;
 
   public Appointment() {}
   
@@ -44,6 +47,7 @@ public class Appointment {
     this.vetName = vetName;
     this.date = date;
     this.time = time;
+    this.notes = "";
   }
 
 public Long getId() {
@@ -92,6 +96,14 @@ public String getTime() {
 
 public void setTime(String time) {
 	this.time = time;
+}
+
+public String getNotes() {
+	return notes;
+}
+
+public void setNotes(String notes) {
+	this.notes = notes;
 }
 
 }
