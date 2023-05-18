@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.berzinc.pettracker.security.Credentials;
@@ -31,6 +32,16 @@ public class VaccinationController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
         
+    }
+
+    @RequestMapping(value="/vaccinations/pet", method=RequestMethod.GET)
+    public ResponseEntity<?> listPetVaccinations(@RequestParam String petName) {
+        try {
+            List<Vaccination> vaccinations = vaccinationService.listVaccinationByPetName(petName);   
+            return ResponseEntity.ok(vaccinations);
+        } catch (IllegalStateException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
     
     @RequestMapping(value="/vaccinations", method=RequestMethod.GET)

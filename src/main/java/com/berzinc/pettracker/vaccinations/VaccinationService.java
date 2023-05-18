@@ -38,6 +38,14 @@ public class VaccinationService {
     	vaccinationRepository.deleteById(id);
     }
     
+    public List<Vaccination> listVaccinationByPetName(String petName) {
+        Pet pet = PetRepository.findByName(petName);
+        if(pet == null) {
+            throw new IllegalStateException("Pet not found");
+        }
+        return vaccinationRepository.findAllByPet(pet);   
+    }
+
     public Vaccination updateVaccination(Long id, Vaccination vaccinationDetails) {
     	// Vaccination vaccination = vaccinationRepository.findById(id).get();
     	// vaccination.setPet_id(vaccinationDetails.getPet_id());
