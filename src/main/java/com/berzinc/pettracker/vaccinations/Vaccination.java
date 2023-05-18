@@ -3,6 +3,7 @@ package com.berzinc.pettracker.vaccinations;
 import java.sql.Date;
 
 import com.berzinc.pettracker.pets.Pet;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -23,8 +24,9 @@ public class Vaccination {
   @GeneratedValue(strategy=GenerationType.IDENTITY)
   private Long id;
 
-  @ManyToOne
+  @ManyToOne()
   @JoinColumn(name="pet_id")
+  @JsonIgnore
   private Pet pet;
   
   @Column(name="date", nullable=false)
@@ -38,6 +40,8 @@ public class Vaccination {
     this.date = date;
     this.name = name;
   }
+
+  public Vaccination(){}
 
 public Long getId() {
 	return id;

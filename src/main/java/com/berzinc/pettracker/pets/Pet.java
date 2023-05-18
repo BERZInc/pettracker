@@ -37,7 +37,7 @@ public class Pet {
   private Double height;
   
   @Column(name="weight", nullable=false)
-  private Double weight;
+  private Double weight; 
 
 
   public Pet() {}

@@ -30,9 +30,9 @@ public class AppointmentService {
     
     public Appointment updateAppointment(Long id, Appointment appointmentDetails) {
     	Appointment appointment = appointmentRepository.findById(id).get();
-    	appointment.setUser_id(appointmentDetails.getUser_id());
-    	appointment.setPet_id(appointmentDetails.getPet_id());
-    	appointment.setVet_id(appointmentDetails.getVet_id());
+    	appointment.setFullName(appointmentDetails.getFullName());
+    	appointment.setPetName(appointmentDetails.getPetName());
+    	appointment.setVetName(appointmentDetails.getVetName());
     	appointment.setDate(appointmentDetails.getDate());
     	appointment.setTime(appointmentDetails.getTime());
         
