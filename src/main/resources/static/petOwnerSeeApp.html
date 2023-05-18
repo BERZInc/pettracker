@@ -49,7 +49,8 @@ body {
       <a class="nav-item nav-link active" href="petOwnerSeeApp.html">Appt History</a>
     </div>
     <div class="navbar-nav ms-auto">
-      <a class="nav-item nav-link" href="userSettings.html">Settings</a>
+      <button id="logout" class="btn btn-link rounded-pill px-3" type="button">Logout</button>
+      
     </div>
   </div>
 </nav>
@@ -104,6 +105,11 @@ body {
         </form>
         
         <script>
+
+          $("#logout").click(function() {
+            window.location.replace("home.html");
+          });
+
 		const apptData = {};
 
             function getAppts() {

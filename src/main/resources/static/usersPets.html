@@ -29,7 +29,7 @@ body {
       <a class="nav-item nav-link" href="petOwnerSeeApp.html">Appt History</a>
     </div>
     <div class="navbar-nav ms-auto">
-      <a class="nav-item nav-link" href="userSettings.html">Settings</a>
+        <button id="logout" class="btn btn-link rounded-pill px-3" type="button">Logout</button>
     </div>
   </div>
 </nav>
@@ -128,7 +128,9 @@ body {
 
 
         <script>
-
+                      $("#logout").click(function() {
+            window.location.replace("home.html");
+          });
             const petData = {};
 
             function getPets() {
@@ -168,6 +170,7 @@ body {
                                 $("#update_age").val(petData[petId]["age"]);
                                 $("#update_height").val(petData[petId]["height"]);
                                 $("#update_weight").val(petData[petId]["weight"]);
+                                $("#updatePetForm").attr("petId", petId);
                             });
                     }
                 
@@ -178,7 +181,8 @@ body {
 
             $("#saveChanges").on("click", function() {
 
-
+                var petId = $("#updatePetForm").attr("petId");
+                var id = petData[petId]["id"];
                 var updatePetForm = $("#updatePetForm").serializeArray();
                 
                 var updatedDog = {};
@@ -188,7 +192,7 @@ body {
 	
 	
 	                var settings = {
-	                "url": "http://localhost:8080/api/pets/1",
+	                "url": "http://localhost:8080/api/pets/" + id,
 	                "method": "PUT",
 	                "timeout": 0,
 	                "headers": {
