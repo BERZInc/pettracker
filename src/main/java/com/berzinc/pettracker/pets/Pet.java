@@ -1,16 +1,18 @@
 package com.berzinc.pettracker.pets;
 
+import com.berzinc.pettracker.users.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Table;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-/**		
- * 
- * @author Erik Ziegler
- *
- */
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+
+
 @Entity
 @Table(name = "pets")
 public class Pet {
@@ -39,6 +41,11 @@ public class Pet {
   
   @Column(name="weight", nullable=false)
   private Double weight; 
+
+  @ManyToOne
+  @JoinColumn(name="user_id", nullable=false)
+  @JsonIgnore
+  private User user;
 
 
   public Pet() {}
@@ -114,6 +121,14 @@ public Double getWeight() {
 
 public void setWeight(Double weight) {
 	this.weight = weight;
+}
+
+public User getUser() {
+  return user;
+}
+
+public void setUser(User user) {
+  this.user = user;
 }
 
 }

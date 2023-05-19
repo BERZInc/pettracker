@@ -1,6 +1,10 @@
 package com.berzinc.pettracker.appointments;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.berzinc.pettracker.users.User;
 
 /**		
  * 
@@ -9,5 +13,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 
 public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
-
+    List<Appointment> findAllByUser(User user);
 }

@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.berzinc.pettracker.pets.Pet;
 
+
 /**		
  * 
  * @author Erik Ziegler
@@ -13,4 +14,5 @@ import com.berzinc.pettracker.pets.Pet;
  */
 
 public interface VaccinationRepository extends JpaRepository<Vaccination, Long> {
+    List<Vaccination> findAllByPet(Pet user);
 }

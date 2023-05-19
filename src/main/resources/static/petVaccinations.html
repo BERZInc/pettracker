@@ -10,29 +10,30 @@
     <body>
     <style>
 body {
-  background-image: url('pexels-sam-lion-5731866.jpg');
+  background-image: url('./images/pexels-sam-lion-5731866.jpg');
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: 100% 100%;
 }
 </style>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="petOwnerPage.html">PetTracker</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-    <div class="navbar-nav">
-      <a class="nav-item nav-link" href="usersPets.html">My Pets</a>
-      <a class="nav-item nav-link active" href="petVaccinations.html">Vaccinations</a>
-      <a class="nav-item nav-link" href="petOwnerBookApp.html">Book Appt</a>
-      <a class="nav-item nav-link" href="petOwnerSeeApp.html">Appt History</a>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
+    <div class="container-fluid">
+    <a class="navbar-brand" href="petOwnerPage.html">PetTracker</a>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link" href="usersPets.html">My Pets</a>
+            <a class="nav-item nav-link active" href="petVaccinations.html">Vaccinations</a>
+            <a class="nav-item nav-link" href="petOwnerBookApp.html">Book Appt</a>
+            <a class="nav-item nav-link" href="petOwnerSeeApp.html">Appt History</a>
+        </div>
+        <div class="navbar-nav ms-auto">
+        <button id="logout" class="nav-item btn btn-link rounded-pill px-3" type="button">Logout</button>
+        </div>
     </div>
-    <div class="navbar-nav ms-auto">
-      <a class="nav-item nav-link" href="userSettings.html">Settings</a>
     </div>
-  </div>
 </nav>
+
     <div class="container">
 
             <br>
@@ -50,17 +51,18 @@ body {
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                <p>
+                    <div class="form-group">
                     <label for="petName">Pet Name:</label>
-                    <input type="text" id="petName" name="petName">
-                    <br>
+                    <input type="text" class="form-control" id="petName" name="petName">
+                    </div>
+                    <div class="form-group">
                     <label for="vaccName">Vaccination:</label>
-                    <input type="text" id="vaccName" name="vaccName">
-                    <br>
+                    <input type="text" class="form-control" id="vaccName" name="vaccName">
+                    </div>
+                    <div class="form-group">
                     <label for="date">Date:</label>
-                    <input type="date" id="date" name="date">
-                    <br>
-                </p>
+                    <input type="date" class="form-control" id="date" name="date">
+                    </div>
                 </div>
                 <div class="modal-footer">
                 <button id="btnClose" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -71,43 +73,49 @@ body {
         </div>
     </form>
 
-<form id="updateVaccForm" method="PUT">
-            <div class="modal" id="updateVaccModal" tabindex="-1">
-                <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                    <h5 class="modal-title">Update your vaccination information</h5> 
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p>
-                    <label for="petName">Pet Name:</label>
-                    <input type="text" id="update_petName" name="petName">
-                    <br>
-                    <label for="vaccName">Vaccination:</label>
-                    <input type="text" id="update_vaccName" name="vaccName">
-                    <br>
-                    <label for="date">Date:</label>
-                    <input type="date" id="update_date" name="date">
-                    <br>
-                    </p>
-                    </div>
-                    <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" id="saveChanges" class="btn btn-primary">Save changes</button>
+            <form id="updateVaccForm" method="PUT">
+                <div class="modal" id="updateVaccModal" tabindex="-1">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Update your vaccination information</h5> 
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                <label for="petName">Pet Name:</label>
+                                <input type="text" class="form-control" id="update_petName" name="petName">
+                                </div>
+                                <div class="form-group">
+                                <label for="vaccName">Vaccination:</label>
+                                <input type="text" class="form-control" id="update_vaccName" name="vaccName">
+                                </div>
+                                <div class="form-group">
+                                <label for="date">Date:</label>
+                                <input type="date" class="form-control" id="update_date" name="date">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" id="saveChanges" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                </div>
-            </div>
-        </form>
+            </form>
+        <script src="functions.js"></script> 
         <script>
-
+            const token = getCookieAndValidate("token");
             const vaccData = {};
 
             function getVaccs() {
                 var settings = {
                 "url": "http://localhost:8080/api/vaccinations",
                 "method": "GET",
+                "headers": {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer "+token
+                },
                 "timeout": 0,
                 };
 
@@ -157,9 +165,10 @@ body {
 	                "url": "http://localhost:8080/api/vaccinations/" + id,
 	                "method": "PUT",
 	                "timeout": 0,
-	                "headers": {
-	                    "Content-Type": "application/json"
-	                },
+                    "headers": {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer "+token
+                    },
 	                "data": JSON.stringify(updatedVacc),
 	                };
 	
@@ -184,7 +193,8 @@ body {
                 "method": "POST",
                 "timeout": 0,
                 "headers": {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer "+token
                 },
                 "data": JSON.stringify(newVacc),
                 };

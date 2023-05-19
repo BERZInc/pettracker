@@ -1,11 +1,10 @@
 package com.berzinc.pettracker.vaccinations;
 
-import java.sql.Date;
 
 import com.berzinc.pettracker.pets.Pet;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import jakarta.persistence.CascadeType;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Table;
 import jakarta.persistence.Entity;
@@ -14,7 +13,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
+
 /**		
  * 
  * @author Erik Ziegler
@@ -28,8 +27,10 @@ public class Vaccination {
   @GeneratedValue(strategy=GenerationType.IDENTITY)
   private Long id;
 
-  @Column(name="petName", nullable=false)
-  private String petName;
+  @ManyToOne
+  @JoinColumn(name="pet_id", nullable=false)
+  @JsonIgnore
+  private Pet pet;
   
   @Column(name="date", nullable=false)
   private String date;
@@ -37,8 +38,8 @@ public class Vaccination {
   @Column(name="vaccName", nullable=false)
   private String vaccName;
 
-  public Vaccination(String petName, String date, String vaccName) {
-	    this.petName = petName;
+  public Vaccination(Pet pet, String date, String vaccName) {
+	    this.pet = pet;
 	    this.date = date;
 	    this.vaccName = vaccName;
 	  }
@@ -61,12 +62,12 @@ public void setDate(String date) {
 	this.date = date;
 }
 
-public String getPetName() {
-	return petName;
+public Pet getPet() {
+	return pet;
 }
 
-public void setPetName(String petName) {
-	this.petName = petName;
+public void setPet(Pet pet) {
+	this.pet = pet;
 }
 
 public String getVaccName() {

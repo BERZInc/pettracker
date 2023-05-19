@@ -1,5 +1,6 @@
 package com.berzinc.pettracker.appointments;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,14 +24,14 @@ public class AppointmentController {
 
     @CrossOrigin
     @RequestMapping(value="/appointments", method=RequestMethod.POST)
-    public Appointment createAppointment(@RequestBody Appointment appointment) {
-        return appointmentService.createAppointment(appointment);
+    public Appointment createAppointment(@RequestBody Appointment appointment, Principal principal) {
+        return appointmentService.createAppointment(appointment, principal.getName());
     }
 
     @CrossOrigin
     @RequestMapping(value="/appointments", method=RequestMethod.GET)
-    public List<Appointment> listAllAppointments() {
-        return appointmentService.listAllAppointments();
+    public List<Appointment> listAllAppointments(Principal principal) {
+        return appointmentService.listAllAppointments(principal.getName());
     }
 
     @CrossOrigin

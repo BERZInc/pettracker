@@ -1,7 +1,7 @@
 package com.berzinc.pettracker.pets;
 
+import java.security.Principal;
 import java.util.List;
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -11,11 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-/**		
- * 
- * @author Erik Ziegler
- *
- */
+
 @RestController
 @RequestMapping(path="/api")
 public class PetController {
@@ -25,15 +21,14 @@ public class PetController {
     
     @CrossOrigin
     @RequestMapping(value="/pets", method=RequestMethod.POST)
-    public Pet createPet(@RequestBody Pet pet) {
-        System.out.println(pet);
-        return petService.createPet(pet);
+    public Pet createPet(@RequestBody Pet pet, Principal principal) {
+        return petService.createPet(pet, principal.getName());
     }
     
     @CrossOrigin
     @RequestMapping(value="/pets", method=RequestMethod.GET)
-    public List<Pet> listAllPets() {
-        return petService.listAllPets();
+    public List<Pet> listAllPets(Principal principal) {
+        return petService.listAllPets(principal.getName());
     }
 
     @CrossOrigin
@@ -46,4 +41,5 @@ public class PetController {
     public void deletePet(@PathVariable(value = "id") Long id) {
     	petService.deletePet(id);
     }
+
 }

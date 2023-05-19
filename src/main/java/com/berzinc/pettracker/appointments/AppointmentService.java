@@ -4,6 +4,9 @@ import java.util.List;
  
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.berzinc.pettracker.users.UserRepository;
+import com.berzinc.pettracker.users.User;
 /**		
  * 
  * @author Erik Ziegler
@@ -14,11 +17,19 @@ public class AppointmentService {
     @Autowired
     private AppointmentRepository appointmentRepository;
     
-    public List<Appointment> listAllAppointments() {
-        return appointmentRepository.findAll();
+    @Autowired
+    private UserRepository userRepository;
+
+    public List<Appointment> listAllAppointments(String username) {
+        User user = userRepository.findByUsername(username)
+        .orElseThrow(() -> new IllegalStateException("user not found " + username));
+        return appointmentRepository.findAllByUser(user);
     }
      
-    public Appointment createAppointment(Appointment appointment) {
+    public Appointment createAppointment(Appointment appointment, String username) {
+        User user = userRepository.findByUsername(username)
+            .orElseThrow(() -> new IllegalStateException("user not found " + username));
+        appointment.setUser(user);
     	return appointmentRepository.save(appointment);
     }
      

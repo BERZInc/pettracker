@@ -1,21 +1,18 @@
 package com.berzinc.pettracker.users;
 
-import com.berzinc.pettracker.security.Credentials;
+import java.util.Arrays;
+import java.util.List;
 
-import jakarta.persistence.CascadeType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Table;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
-/**		
- * 
- * @author Erik Ziegler
- *
- */
+import jakarta.persistence.OneToMany;
+
 @Entity
 @Table(name = "users")
 public class User {
@@ -30,14 +27,24 @@ public class User {
   @Column(name="last_name", nullable=false)
   private String lastName;
 
-  @OneToOne(cascade = CascadeType.ALL)
-  @JoinColumn(name = "user_name")
-  private Credentials credentials;
+  @Column(name="username", nullable = false)
+  private String username;
 
-  public User(String firstName, String lastName, Credentials credentials) {
+  @JsonIgnore
+  @Column(name="password", nullable = false)
+  private String password;
+
+  @OneToMany()
+  private List<UserRole> roles;
+
+  public User(){}
+
+  public User(String usermame, String password, String firstName, String lastName, UserRole role) {
+    this.username = usermame;
+    this.password = password;
     this.firstName = firstName;
     this.lastName = lastName;
-    this.credentials = credentials;
+    this.roles = Arrays.asList(role);
   }
 
 	public Long getId() {
@@ -65,19 +72,15 @@ public class User {
 	}
 
   public String getUsername() {
-    return credentials.getUsername();
+    return username;
   }
 
   public String getPassword() {
-    return credentials.getPassword();
+    return password;
   }
-	
-	public Credentials getCredentials() {
-		return credentials;
-	}
 
-	public void setCredentials(Credentials credentials) {
-		this.credentials = credentials;
-	}
+  public List<UserRole> getRoles() {
+    return roles;
+  }
 
 }

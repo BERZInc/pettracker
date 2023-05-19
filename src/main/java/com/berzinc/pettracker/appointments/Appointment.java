@@ -1,11 +1,16 @@
 package com.berzinc.pettracker.appointments;
 
+import com.berzinc.pettracker.users.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Table;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 /**		
  * 
  * @author Erik Ziegler
@@ -36,6 +41,11 @@ public class Appointment {
   
   @Column(name="notes", nullable=false)
   private String notes;
+
+  @ManyToOne
+  @JoinColumn(name="user_id", nullable=false)
+  @JsonIgnore
+  private User user;
 
   public Appointment() {}
   
@@ -102,6 +112,14 @@ public String getNotes() {
 
 public void setNotes(String notes) {
 	this.notes = notes;
+}
+
+public User getUser() {
+  return user;
+}
+
+public void setUser(User user) {
+  this.user = user;
 }
 
 }
