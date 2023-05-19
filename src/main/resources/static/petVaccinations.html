@@ -34,13 +34,15 @@ body {
   </div>
 </nav>
     <div class="container">
-        <div class="row row-cols-1 row-cols-md-2 g-3">
-            <div id="petList"></div>
-        </div>
-    </div>
 
-    <form id="newVaccinationForm" method="POST">
-        <div class="modal" id="addVaccineModal" tabindex="-1">
+            <br>
+            <button class="btn btn-primary" type="button" style="margin-bottom: 20px;" data-bs-toggle="modal" data-bs-target="#addVaccModal">Add Vaccinations</button>
+
+                <div id="vaccList" class="card-deck row row-cols-1 row-cols-md-2 g-3"></div>
+        </div>
+
+    <form id="newVaccForm" method="POST">
+        <div class="modal" id="addVaccModal" tabindex="-1">
             <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -49,8 +51,11 @@ body {
                 </div>
                 <div class="modal-body">
                 <p>
-                    <label for="vaccine">Vaccination:</label>
-                    <input type="text" id="vaccine" name="vaccine">
+                    <label for="petName">Pet Name:</label>
+                    <input type="text" id="petName" name="petName">
+                    <br>
+                    <label for="vaccName">Vaccination:</label>
+                    <input type="text" id="vaccName" name="vaccName">
                     <br>
                     <label for="date">Date:</label>
                     <input type="date" id="date" name="date">
@@ -59,99 +64,139 @@ body {
                 </div>
                 <div class="modal-footer">
                 <button id="btnClose" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" id="saveNewVaccination" class="btn btn-primary">Save changes</button>
+                <button type="button" id="saveNewVacc" class="btn btn-primary">Save changes</button>
                 </div>
             </div>
             </div>
         </div>
     </form>
 
-    <script>
+<form id="updateVaccForm" method="PUT">
+            <div class="modal" id="updateVaccModal" tabindex="-1">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title">Update your vaccination information</h5> 
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                    <label for="petName">Pet Name:</label>
+                    <input type="text" id="update_petName" name="petName">
+                    <br>
+                    <label for="vaccName">Vaccination:</label>
+                    <input type="text" id="update_vaccName" name="vaccName">
+                    <br>
+                    <label for="date">Date:</label>
+                    <input type="date" id="update_date" name="date">
+                    <br>
+                    </p>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" id="saveChanges" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </form>
+        <script>
 
-        const petData = {};
+            const vaccData = {};
 
-        function getPets() {
-            var settings = {
-                "url": "http://localhost:8080/api/pets",
+            function getVaccs() {
+                var settings = {
+                "url": "http://localhost:8080/api/vaccinations",
                 "method": "GET",
                 "timeout": 0,
-            };
+                };
 
-            $.ajax(settings).done(function (response) {
-                $("#petList").empty();
+                $.ajax(settings).done(function (response) {
+                    $("#vaccList").empty();
 
-                for(var i = 0; i < response.length; i++){
-                    petData["pet"+i] = response[i];
-
-                    $("#petList").append(
-                        "<div class=\"col\">" +
-                        "<div class=\"card card-size\">" +
-                        "<div class=\"card-body\">" +
-                        "<h1 class=\"card-title\">"+ response[i]["name"] +"</h1>" +
-                        "<div id=\"vaccinationList" + response[i]["name"] + "\"></div>" +
-                        "<button id=\"pet"+i+"\" class=\"btn btn-primary\" type=\"button\" data-bs-toggle=\"modal\" data-bs-target=\"#addVaccineModal\">Add Vaccine</button>" +
-                        "</div></div></div>"
-                    );
-
-                    $("#pet"+i).on("click", function(e) {
-                                var petId = e.currentTarget.attributes["id"]["nodeValue"];
-                                $("#newVaccinationForm").trigger("reset");
-                                $("#newVaccinationForm").attr("petname",petData[petId]["name"]);
+                    for(var i = 0; i < response.length; i++){
+                    	vaccData["vacc"+i] = response[i];
+                        $("#vaccList").append(
+                            "<div class=\"col\">" +
+                            "<div class=\"card\">" +
+                            "<div class=\"card-body\">" +
+                            "<h1 class=\"card-title\">"+ response[i]["vaccName"] +"</h1>" +
+                            "<p class=\"card-text\"><label for=\"petName\">Pet Name: " + response[i]["petName"] +"</label></p>"+ 
+                            "<p class=\"card-text\"><label for=\"date\">Date: " + response[i]["date"] +"</label></p>"+
+                            "<button id=\"vacc"+i+"\" class=\"btn btn-primary petUpdate\" type=\"button\" data-bs-toggle=\"modal\" data-bs-target=\"#updateVaccModal\">Update Vaccine</button>" +
+                            "</div></div></div>"
+                            );
+                            $("#vacc"+i).on("click", function(e) {
+                                var vaccId = e.currentTarget.attributes["id"]["nodeValue"];
+                                $("#updateVaccForm").trigger("reset");
+                                $("#update_petName").val(vaccData[vaccId]["petName"]);
+                                $("#update_vaccName").val(vaccData[vaccId]["vaccName"]);
+                                $("#update_date").val(vaccData[vaccId]["date"]);
+                                $("#updateVaccForm").attr("vaccId", vaccId);
                             });
-
-                    const vaccinationData = {};
-
-                    function getVaccinations() {
-                        var settings1 = {
-                            "url": "http://localhost:8080/api/vaccinations/pet?petName=" + response[i]["name"],
-                            "method": "GET",
-                            "timeout": 0,
-                        };
-
-                        $.ajax(settings1).done(function (r) {
-
-                            for(var j = 0; j < r.length; j++){
-                                vaccinationData["vaccination"+j] = r[j];
-                                $("#vaccinationList" + r[j]["pet"]["name"]).append(
-                                    "<ol class=\"list-group list-group-numbered\">" + 
-                                    "<li class=\"list-group-item d-flex justify-content-between align-items-start\">" +
-                                    "<div class=\"ms-2 me-auto\">" +
-                                    "<p class=\"card-text\"><label for=\"vaccinations\">Vaccination: " + r[j]["name"] + "</label></p>" +
-                                    "<p class=\"card-text\"><label for=\"date\">Date: " + r[j]["date"] + "</label></p>" + 
-                                    "</div></li></ol>"
-                                );
-                            }
-                        });
                     }
-                    getVaccinations();
-                }
-            });
-        }
-        getPets();
-
-        $( "#saveNewVaccination" ).on( "click", function() {
-            var petName = $("#newVaccinationForm").attr("petname");
-            var newPetForm = $("#newVaccinationForm").serializeArray();
-            
-            var newVaccination = {};
-            for(var i = 0; i < newVaccinationForm.length; i++){
-                newVaccination[newVaccinationForm[i]["name"]] = newVaccinationForm[i]["value"];
+                
+                });
             }
-            var settings = {
+            getVaccs();
+
+
+            $("#saveChanges").on("click", function() {
+
+            	var vaccId = $("#updateVaccForm").attr("vaccId");
+                var id = vaccData[vaccId]["id"];
+                var updateVaccForm = $("#updateVaccForm").serializeArray();
+                
+                var updatedVacc = {};
+                for(var i = 0; i < updateVaccForm.length; i++){
+                	updatedVacc[updateVaccForm[i]["name"]] = updateVaccForm[i]["value"] 
+	                }
+	
+	
+	                var settings = {
+	                "url": "http://localhost:8080/api/vaccinations/" + id,
+	                "method": "PUT",
+	                "timeout": 0,
+	                "headers": {
+	                    "Content-Type": "application/json"
+	                },
+	                "data": JSON.stringify(updatedVacc),
+	                };
+	
+	                $.ajax(settings).done(function (response) {
+	                    $("#updateVaccForm").trigger("reset");
+	                    $('#updateVaccModal').modal('toggle');
+	                    getVaccs();
+	                });
+            });
+
+
+
+            $( "#saveNewVacc" ).on( "click", function() {
+                var newVaccForm = $("#newVaccForm").serializeArray();
+
+                var newVacc = {};
+                for(var i = 0; i < newVaccForm.length; i++){
+                	newVacc[newVaccForm[i]["name"]] = newVaccForm[i]["value"] 
+                }
+                var settings = {
                 "url": "http://localhost:8080/api/vaccinations",
                 "method": "POST",
                 "timeout": 0,
                 "headers": {
                     "Content-Type": "application/json"
                 },
-                "data": JSON.stringify(newVaccination),
-            };
+                "data": JSON.stringify(newVacc),
+                };
 
-            $.ajax(settings).done(function (response) {
-                $("#newVaccinationForm").trigger("reset");
-                getVaccinations();
-            });
-        });
-    </script>
+                $.ajax(settings).done(function (response) {
+                    
+                    $("#newVaccForm").trigger("reset");
+                    $('#addVaccModal').modal('toggle');
+                    getVaccs();
+                });
+
+            } );
+        </script>
 </body>
 </html>

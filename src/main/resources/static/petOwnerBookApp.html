@@ -100,15 +100,6 @@ body {
                                 <label for="vetName" class="form-label">Vet name</label>
                                 <input type="text" class="form-control" id="vetName" name="vetName" value="" required>
                             </div>
-                            <!-- <div class="col-sm-12" style="display: flex; flex-direction: column;">
-                                <label for="vetName" class="form-label">Vet</label>
-                                <select class="dropdown form-control dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <option><span>Available Vets</span></option>
-                                    <option class="dropdown-item">Dr. Smith</option>
-                                    <option class="dropdown-item">Dr. Anderson</option>
-                                    <option class="dropdown-item">Dr. Kotlin</option>
-                                </select>
-                            </div> -->
 
                             <div class="col-sm-12">
                                 <label for="appDate" class="form-label">Date</label>
@@ -128,7 +119,6 @@ body {
                             <button type="button" class="btn btn-primary" id="confirmApp" onclick="myFunction()">Confirm Appointment</button>
             <button type="button" class="btn btn-primary" id="back" onclick="history.back();">Cancel</button>
 <div id="snackbar">Your appointment was booked successfully!</div>
-                            <!-- Need to add javascript code to connect button and toast message-->
                             <div class="toast-container position-fixed bottom-0 end-0 p-3">
                                 <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
                                     <div class="toast-header">
@@ -148,35 +138,23 @@ body {
 
 		<script>
 			var now = new Date(),
-		    // minimum date the user can choose, in this case now and in the future
 		    minDate = now.toISOString().substring(0,10);
 	
 		$('#appDate').prop('min', minDate);
 		function myFunction() {
-			  // Get the snackbar DIV
 			  var x = document.getElementById("snackbar");
-
-			  // Add the "show" class to DIV
 			  x.className = "show";
-
-			  // After 3 seconds, remove the show class from DIV
 			  setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
 			}
 
             $( "#confirmApp" ).on( "click", function() {
                 var newApptForm = $("#newApptForm").serializeArray();
                 
-               /*  var selecteddate = $("#appDate").datepicker("getDate");
-                console.log(selecteddate); */
-                
                 var newAppt = {};
 
-                //console.log(newApptForm);
                 for(var i = 0; i < newApptForm.length; i++){
                 	newAppt[newApptForm[i]["name"]] = newApptForm[i]["value"] 
                 }
-                console.log(newApptForm);
-                console.log(newAppt);
                 var settings = {
                 "url": "http://localhost:8080/api/appointments",
                 "method": "POST",
@@ -190,13 +168,9 @@ body {
                  $.ajax(settings).done(function (response) {
                     
                     $("#newApptForm").trigger("reset");
-                   // $('#addPetModal').modal('toggle');
                 }); 
 
             } );
         </script>
-
-
-
     </body>
 </html>

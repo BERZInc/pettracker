@@ -11,7 +11,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.berzinc.pettracker.security.Credentials;
-
+/**		
+ * 
+ * @author Erik Ziegler
+ *
+ */
 @RestController
 @RequestMapping(path="/api")
 public class UserController {

@@ -6,7 +6,11 @@ import jakarta.transaction.Transactional;
  
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+/**		
+ * 
+ * @author Erik Ziegler
+ *
+ */
 @Service
 public class UserService {
     @Autowired

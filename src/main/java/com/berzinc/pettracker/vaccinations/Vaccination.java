@@ -15,7 +15,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
-
+/**		
+ * 
+ * @author Erik Ziegler
+ *
+ */
 @Entity
 @Table(name = "vaccinations")
 public class Vaccination {
@@ -24,22 +28,20 @@ public class Vaccination {
   @GeneratedValue(strategy=GenerationType.IDENTITY)
   private Long id;
 
-  @ManyToOne()
-  @JoinColumn(name="pet_id")
-  //@JsonIgnore
-  private Pet pet;
+  @Column(name="petName", nullable=false)
+  private String petName;
   
   @Column(name="date", nullable=false)
-  private Date date;
+  private String date;
   
-  @Column(name="name", nullable=false)
-  private String name;
+  @Column(name="vaccName", nullable=false)
+  private String vaccName;
 
-  public Vaccination(Pet pet, Date date, String name) {
-    this.pet = pet;
-    this.date = date;
-    this.name = name;
-  }
+  public Vaccination(String petName, String date, String vaccName) {
+	    this.petName = petName;
+	    this.date = date;
+	    this.vaccName = vaccName;
+	  }
 
   public Vaccination(){}
 
@@ -51,28 +53,29 @@ public void setId(Long id) {
 	this.id = id;
 }
 
-public Pet getPet() {
-	return pet;
-}
-
-public void setPet(Pet pet) {
-	this.pet = pet;
-}
-
-public Date getDate() {
+public String getDate() {
 	return date;
 }
 
-public void setDate(Date date) {
+public void setDate(String date) {
 	this.date = date;
 }
 
-public String getName() {
-	return name;
+public String getPetName() {
+	return petName;
 }
 
-public void setName(String name) {
-	this.name = name;
+public void setPetName(String petName) {
+	this.petName = petName;
 }
+
+public String getVaccName() {
+	return vaccName;
+}
+
+public void setVaccName(String vaccName) {
+	this.vaccName = vaccName;
+}
+
 
 }

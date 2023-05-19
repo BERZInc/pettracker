@@ -15,8 +15,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.berzinc.pettracker.pets.Pet;
 import com.berzinc.pettracker.security.Credentials;
-
+/**		
+ * 
+ * @author Erik Ziegler
+ *
+ */
 @RestController
 @RequestMapping(path="/api")
 public class VaccinationController {
@@ -26,25 +31,8 @@ public class VaccinationController {
 
     @CrossOrigin
     @RequestMapping(value="/vaccinations", method=RequestMethod.POST)
-    public ResponseEntity<?> createVaccination(@RequestBody VaccinationRequest vaccinationRequest) {
-        try {
-            Vaccination newVaccination = vaccinationService.createVaccination(vaccinationRequest);    
-            return ResponseEntity.ok(newVaccination);
-        } catch (IllegalStateException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
-        
-    }
-
-    @CrossOrigin
-    @RequestMapping(value="/vaccinations/pet", method=RequestMethod.GET)
-    public ResponseEntity<?> listPetVaccinations(@RequestParam String petName) {
-        try {
-            List<Vaccination> vaccinations = vaccinationService.listVaccinationByPetName(petName);   
-            return ResponseEntity.ok(vaccinations);
-        } catch (IllegalStateException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
+    public Vaccination createPet(@RequestBody Vaccination vaccination) {
+        return vaccinationService.createVaccination(vaccination);
     }
     
     @CrossOrigin
@@ -60,7 +48,7 @@ public class VaccinationController {
     }
 
     @RequestMapping(value="/vaccinations/{id}", method=RequestMethod.DELETE)
-    public void deleteVaccination(@PathVariable(value = "id") Long id) {
+    public void deletePet(@PathVariable(value = "id") Long id) {
     	vaccinationService.deleteVaccination(id);
     }
 }

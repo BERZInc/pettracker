@@ -12,7 +12,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
-
+/**		
+ * 
+ * @author Erik Ziegler
+ *
+ */
 @Entity
 @Table(name = "appointments")
 public class Appointment {
