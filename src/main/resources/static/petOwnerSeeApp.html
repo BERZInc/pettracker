@@ -44,7 +44,8 @@ body {
       <a class="nav-item nav-link active" href="petOwnerSeeApp.html">Appt History</a>
     </div>
     <div class="navbar-nav ms-auto">
-      <a class="nav-item nav-link" href="userSettings.html">Settings</a>
+      <button id="logout" class="btn btn-link rounded-pill px-3" type="button">Logout</button>
+      
     </div>
   </div>
 </nav>
@@ -66,25 +67,30 @@ body {
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <p>
+                      <div class="form-group">
                             <label for="fullName">Full Name:</label>
-                            <input type="text" id="update_fullName" name="fullName" readonly>
-                            <br>
+                            <input type="text" class="form-control" id="update_fullName" name="fullName" readonly>
+                            </div>
+                            <div class="form-group">
                             <label for="petName">Pet Name:</label>
-                            <input type="text" id="update_petName" name="petName" readonly>
-                            <br>
+                            <input type="text" class="form-control" id="update_petName" name="petName" readonly>
+                            </div>
+                            <div class="form-group">
                             <label for="vetName">Vet Name:</label>
-                            <input type="text" id="update_vetName" name="vetName" readonly>
-                            <br>
+                            <input type="text" class="form-control" id="update_vetName" name="vetName" readonly>
+                          </div>
+                          <div class="form-group">
                             <label for="date">Date:</label>
-                            <input type="text" id="update_date" name="date" readonly>
-                            <br>
+                            <input type="text" class="form-control" id="update_date" name="date" readonly>
+                          </div>
+                          <div class="form-group">
                             <label for="time">Time:</label>
-                            <input type="text" id="update_time" name="time" readonly>
-                            <br>
+                            <input type="text" class="form-control" id="update_time" name="time" readonly>
+                          </div>
+                          <div class="form-group">
                             <label for="notes">Notes:</label>
-                            <input type="text" id="update_notes" name="notes">
-                            <br>
+                            <input type="text" class="form-control" id="update_notes" name="notes">
+                          </div>
                     </p>
                     </div>
                     <div class="modal-footer">
@@ -97,6 +103,11 @@ body {
         </form>
         
         <script>
+
+          $("#logout").click(function() {
+            window.location.replace("home.html");
+          });
+
 		const apptData = {};
 
             function getAppts() {
